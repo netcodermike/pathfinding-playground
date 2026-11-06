@@ -1,0 +1,3 @@
+import{test}from'node:test';import assert from'node:assert/strict';import{search}from'./pathfinding.ts';
+test('weighted search avoids mud while BFS minimizes steps',()=>{const g=[[1,5,1],[1,1,1]];assert.equal(search(g,[0,0],[2,0],'bfs').cost,2);for(const a of ['dijkstra','astar']as const){const r=search(g,[0,0],[2,0],a);assert.equal(r.cost,4);assert.equal(r.path.length,5);}});
+test('unreachable, same endpoint, and malformed inputs',()=>{assert.equal(search([[1,0,1]],[0,0],[2,0],'astar').path.length,0);assert.equal(search([[1]],[0,0],[0,0],'bfs').cost,0);assert.throws(()=>search([[1],[1,1]],[0,0],[0,0],'bfs'));assert.throws(()=>search([[0]],[0,0],[0,0],'bfs'));});
